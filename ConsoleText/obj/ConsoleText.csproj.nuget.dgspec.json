@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\S\\source\\repos\\ConsoleText\\ConsoleText\\ConsoleText.csproj": {}
+    "C:\\Users\\S\\Documents\\GitHub\\ConsoleText\\ConsoleText\\ConsoleText.csproj": {}
   },
   "projects": {
-    "C:\\Users\\S\\source\\repos\\ConsoleText\\ConsoleText\\ConsoleText.csproj": {
+    "C:\\Users\\S\\Documents\\GitHub\\ConsoleText\\ConsoleText\\ConsoleText.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\S\\source\\repos\\ConsoleText\\ConsoleText\\ConsoleText.csproj",
+        "projectUniqueName": "C:\\Users\\S\\Documents\\GitHub\\ConsoleText\\ConsoleText\\ConsoleText.csproj",
         "projectName": "ConsoleText",
-        "projectPath": "C:\\Users\\S\\source\\repos\\ConsoleText\\ConsoleText\\ConsoleText.csproj",
+        "projectPath": "C:\\Users\\S\\Documents\\GitHub\\ConsoleText\\ConsoleText\\ConsoleText.csproj",
         "packagesPath": "C:\\Users\\S\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\S\\source\\repos\\ConsoleText\\ConsoleText\\obj\\",
+        "outputPath": "C:\\Users\\S\\Documents\\GitHub\\ConsoleText\\ConsoleText\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\S\\AppData\\Roaming\\NuGet\\NuGet.Config",
