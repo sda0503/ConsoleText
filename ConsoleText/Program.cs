@@ -7,6 +7,7 @@ using InfoManager;
 using System.Linq;
 
 
+
 void init()
 {
     string path = Directory.GetCurrentDirectory();
@@ -82,7 +83,7 @@ void Town(InfoManager.InfoManagerPlayer player)
     else if (choice == 3) Shop(player);
     else if (choice == 4) Inn(player);
     else if (choice == 5) Shop(player);  
-    else if (choice == 6) Shop(player);
+    else if (choice == 6) Dungeon(player);
     else if (choice == 7) Shop(player);
     else if (choice == 8) Save(player);
     else if (choice == 9) Reset(player);
@@ -717,6 +718,39 @@ void sellItem(InfoManager.InfoManagerPlayer player, int num)
         player.list.RemoveAt(num);
         Thread.Sleep(1000);
         Shop(player);
+    }
+}
+
+void Dungeon(InfoManager.InfoManagerPlayer player)
+{
+    Console.Clear();
+    Console.WriteLine("[주의]");
+    Console.WriteLine("던전 내에서 발생하는 모든일에는 책임을 지지 않습니다.");
+    Console.WriteLine("");
+    Console.WriteLine("1.이지 던전 | 방어력 5 이상 권장");
+    Console.WriteLine("2.노말 던전 | 방어력 11 이상 권장");
+    Console.WriteLine("3.하드 던전 | 방어력 17 이상 권장");
+    Console.WriteLine("0.나가기");
+    Console.WriteLine("");
+    Console.WriteLine("원하시는 행동을 입력 해주세요.");
+    int choice = int.Parse(Console.ReadLine());
+    if (choice == 0) Town(player);
+    else if (choice == 1) ;
+    else if (choice == 2) ;
+    else if (choice == 3) ;
+    else
+    {
+        Console.WriteLine("잘못된 입력입니다.");
+        Thread.Sleep(1000);
+        Dungeon(player);
+    }
+}
+
+void adventureDungeon(InfoManager.InfoManagerPlayer player, int type, int require)
+{
+    if(require > player.def + player.appendDef)
+    {
+
     }
 }
 
