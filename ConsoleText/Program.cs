@@ -1,10 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
 using System.Numerics;
+using System.Text;
+
+
+
 
 void init()
 {
+    // 읽어올 text file 의 경로를 지정 합니다.
+    string path = Directory.GetCurrentDirectory();
+    path += "\\saveData.txt";
+    
+    // text file 의 내용을 한줄 씩 읽어와 string 배열에 대입 합니다.
+    string[] textValue = System.IO.File.ReadAllLines(path);
+    
+    /*
+    if (textValue.Length > 0)
+    {
+        for (int i = 0; i < textValue.Length; i++)
+        {
+            Console.WriteLine("Text File " + (i + 1).ToString() + "번째 줄.");
+            // 읽어온 내용을 한줄 씩 출력 합니다.
+            Console.WriteLine(textValue[i]);
+            Console.WriteLine();
+        }
+        int choice = int.Parse(Console.ReadLine());
+    }
+    */
     //플레이어 초기화
     Player player = new Player();
+    //메모장 로드
+    player.maxHp = Convert.ToInt32(textValue[0]);
+    player.currentHp = Convert.ToInt32(textValue[1]);
+    player.level = Convert.ToInt32(textValue[2]);
+    player.currentExp = Convert.ToInt32(textValue[3]);
+    player.maxExp = Convert.ToInt32(textValue[4]);
+    player.className = textValue[5];
+    player.atk = Convert.ToInt32(textValue[6]);
+    player.def = Convert.ToInt32(textValue[7]);
+    player.gold = Convert.ToInt32(textValue[8]);
+    player.equipment[0] = textValue[9];
+    player.equipment[1] = textValue[10];
+    player.equipment[2] = textValue[11];
+    player.maxInventory = Convert.ToInt32(textValue[12]);
+
+
     //게임 시작
     Town(player);
 }
@@ -23,6 +65,8 @@ void Town(Player player)
     Console.WriteLine("5.전직");
     Console.WriteLine("6.던전");
     Console.WriteLine("7.길드");
+    Console.WriteLine("8.저장");
+    Console.WriteLine("9.초기화");
     Console.WriteLine("");
     Console.WriteLine("원하시는 행동을 입력 해주세요.");
     int choice = int.Parse(Console.ReadLine());
@@ -34,6 +78,8 @@ void Town(Player player)
     else if (choice == 5) Shop(player);  
     else if (choice == 6) Shop(player);
     else if (choice == 7) Shop(player);
+    else if (choice == 8) Save(player);
+    else if (choice == 8) Reset(player);
     else
     {
         Console.WriteLine("잘못된 입력입니다.");
@@ -72,6 +118,9 @@ void State(Player player)
 void Inventory(Player player)
 {
     Console.Clear();
+    Console.WriteLine("[보유 골드]");
+    Console.WriteLine(player.GetGold() + "G");
+    Console.WriteLine("");
     Console.WriteLine("[아이템 목록]");
     player.GetItemName();
     Console.WriteLine("");
@@ -766,10 +815,36 @@ void Sell(Player player)
 
 void sellItem(Player player, int num)
 {
+    
     if (player.list[num].isEquip == true)
     {
+
+        //장착시 판매 안됨
+        /*
         Console.WriteLine("장착 아이템은 팔수 없습니다.");
         Sell(player);
+        */
+
+        if(player.list[num].type == "[무기]")
+        {
+            player.equipment[0] = null;
+        }
+        else if(player.list[num].type == "[방어구]")
+        {
+            player.equipment[1] = null;
+        }
+        else if (player.list[num].type == "[장신구]")
+        {
+            player.equipment[2] = null;
+        }
+        int sellGold = player.list[num].price / 100 * 85;
+        player.SetGold(sellGold);
+        Console.WriteLine("");
+        Console.WriteLine(player.list[num].name + "을 판매하였습니다.");
+        Console.WriteLine(sellGold + "G 를 획득하였습니다.");
+        player.list.RemoveAt(num);
+        Thread.Sleep(1000);
+        Shop(player);
     }
     else
     {
@@ -849,6 +924,109 @@ void rest(Player player , int type)
     }
 }
 
+void Save(Player player)
+{
+    string path = Directory.GetCurrentDirectory();
+    path += "\\saveData.txt";
+
+    string[] saveDate = {
+         player.maxHp.ToString(),
+        "\n"+player.currentHp.ToString(),
+        "\n"+player.level.ToString(),
+        "\n"+player.currentExp.ToString(),
+        "\n"+player.maxExp.ToString(),
+        "\n"+player.className,
+        "\n"+player.atk.ToString(),
+        "\n"+player.def.ToString(),
+        "\n"+player.gold.ToString(),
+        "\n"+player.equipment[0],
+        "\n"+player.equipment[1],
+        "\n"+player.equipment[2],
+        "\n"+player.maxInventory.ToString()
+    };
+    // text file 의 내용을 한줄 씩 읽어와 string 배열에 대입 합니다.
+    for(int i = 0; i < saveDate.Length; i++)
+    {
+        if(i == 0) System.IO.File.WriteAllText(path, saveDate[i], Encoding.Default);
+        else System.IO.File.AppendAllText(path, saveDate[i], Encoding.Default);
+    }
+
+    Console.WriteLine("저장되었습니다.");
+    Thread.Sleep(1000);
+    Console.Clear();
+    Console.WriteLine("게임을 종료하시겠습니까?");
+    Console.WriteLine("1.예");
+    Console.WriteLine("2.아니오");
+    Console.WriteLine("");
+    Console.WriteLine("원하시는 행동을 입력 해주세요.");
+    int choice = int.Parse(Console.ReadLine());
+    if (choice == 0) Town(player);
+    else if (choice == 1)
+    {
+
+    }
+    else if (choice == 2) Town(player); 
+    else
+    {
+        Console.WriteLine("잘못된 입력입니다.");
+        Thread.Sleep(1000);
+        Town(player);
+    }
+}
+
+void Reset(Player player)
+{
+    Console.Clear();
+    Console.WriteLine("정말 초기화 하시겠습니까?");
+    Console.WriteLine("초기화를 하시면 모든 저장된 데이터가 초기화 됩니다.");
+    Console.WriteLine("1.예");
+    Console.WriteLine("2.아니오");
+    Console.WriteLine("");
+    Console.WriteLine("원하시는 행동을 입력 해주세요.");
+    int choice = int.Parse(Console.ReadLine());
+    if (choice == 0) Reset(player);
+    else if (choice == 1)
+    {
+        Console.WriteLine("초기화를 진행합니다.");
+        Thread.Sleep(1000);
+    }
+    else if (choice == 2) Town(player);
+    else
+    {
+        Console.WriteLine("잘못된 입력입니다.");
+        Thread.Sleep(1000);
+        Reset(player);
+    }
+    string path = Directory.GetCurrentDirectory();
+    path += "\\saveData.txt";
+
+    string[] saveDate = {
+        "100",
+        "\n100",
+        "\n1",
+        "\n0",
+        "\n100",
+        "\n모험가",
+        "\n10",
+        "\n5",
+        "\n10000",
+        "\n ",
+        "\n ",
+        "\n ",
+        "\n10"
+    };
+    // text file 의 내용을 한줄 씩 읽어와 string 배열에 대입 합니다.
+    for (int i = 0; i < saveDate.Length; i++)
+    {
+        if (i == 0) System.IO.File.WriteAllText(path, saveDate[i], Encoding.Default);
+        else System.IO.File.AppendAllText(path, saveDate[i], Encoding.Default);
+    }
+
+    Console.WriteLine("초기화가 완료 되었습니다.");
+    Console.WriteLine("마을로 돌아갑니다.");
+    Thread.Sleep(1000);
+    Town(player);
+}
 
 //시작하기
 init();
@@ -857,20 +1035,20 @@ init();
 //캐릭터 설정
 class Player
 {
-    private int maxHp = 100;
-    private int currentHp = 100;
-    private int level =1;
-    private int currenyExp = 0;
-    private int maxExp = 100;
-    private string className = "모험가";
-    private int atk = 10;
-    private int def = 5;
-    private int gold = 10000;
+    public int maxHp = 100;
+    public int currentHp = 100;
+    public int level =1;
+    public int currentExp = 0;
+    public int maxExp = 100;
+    public string className = "모험가";
+    public int atk = 10;
+    public int def = 5;
+    public int gold = 10000;
     public string[] equipment = {"","",""};    //차례 대로 무기, 방어구, 장신구
 
 
+    public int maxInventory = 10;
     public List<Item> list = new List<Item>();
-    private int maxInventory = 20;
 
     public void AddItem(Item ItemName)
     {
