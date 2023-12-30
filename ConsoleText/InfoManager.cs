@@ -6,7 +6,7 @@ using System.Text;
 
 namespace InfoManager
 {
-    class InfoManager
+    class InfoManagerPlayer
     {
         public int maxHp = 100;
         public int currentHp = 100;

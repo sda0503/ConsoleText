@@ -15,7 +15,7 @@ void init()
     string[] textValue = System.IO.File.ReadAllLines(path);
 
     //플레이어 초기화
-    InfoManager.InfoManager player = new InfoManager.InfoManager();
+    InfoManager.InfoManagerPlayer player = new InfoManager.InfoManagerPlayer();
     //메모장 로드
     player.maxHp = Convert.ToInt32(textValue[0]);
     player.currentHp = Convert.ToInt32(textValue[1]);
@@ -60,7 +60,7 @@ void init()
 
 
 //마을
-void Town(InfoManager.InfoManager player)
+void Town(InfoManager.InfoManagerPlayer player)
 {
     Console.Clear();
     Console.WriteLine("");
@@ -95,7 +95,7 @@ void Town(InfoManager.InfoManager player)
 }
 
 //상태보기
-void State(InfoManager.InfoManager player)
+void State(InfoManager.InfoManagerPlayer player)
 {
 
     Console.Clear();
@@ -121,7 +121,7 @@ void State(InfoManager.InfoManager player)
 }
 
 //인벤토리
-void Inventory(InfoManager.InfoManager player)
+void Inventory(InfoManager.InfoManagerPlayer player)
 {
     Console.Clear();
     Console.WriteLine("[보유 골드]");
@@ -152,7 +152,7 @@ void Inventory(InfoManager.InfoManager player)
     }
 }
 
-void Equipment(InfoManager.InfoManager player)
+void Equipment(InfoManager.InfoManagerPlayer player)
 {
     Console.Clear();
     Console.WriteLine("[장착 관리]");
@@ -176,7 +176,7 @@ void Equipment(InfoManager.InfoManager player)
 }
 
 //장비 장착
-void EquipmentItem(InfoManager.InfoManager player, int type) 
+void EquipmentItem(InfoManager.InfoManagerPlayer player, int type) 
 {
     //장비 분류
     List<Item> weaponItem = new List<Item>(); //무기 리스트
@@ -282,7 +282,8 @@ void EquipmentItem(InfoManager.InfoManager player, int type)
     }
 }
 
-void selectItem(InfoManager.InfoManager player, int number, List<Item> list, int count)
+//아이템 선택
+void selectItem(InfoManager.InfoManagerPlayer player, int number, List<Item> list, int count)
 {
     player.equipment[count] = list[number].name;
     for (int i = 0; i < player.list.Count; i++)
@@ -344,7 +345,7 @@ void selectItem(InfoManager.InfoManager player, int number, List<Item> list, int
     Equipment(player);
 }
 
-void Shop(InfoManager.InfoManager player)
+void Shop(InfoManager.InfoManagerPlayer player)
 {
     string[] itemsList = {
     "1.[무기] 낡은 검 | 공격력 +2 | 쉽게 볼 수 있는 낡은 검 입니다. | ",
@@ -356,8 +357,6 @@ void Shop(InfoManager.InfoManager player)
     "7.[장신구] 스파르타의 방패 | 방어력 +10| 스파르타의 전사들이 사용했다는 전설의 방패입니다. | ",
     "8.[장신구] 팔목보호대 | 방어력 +3 | 착용자의 팔목을 보호해주는 보호대 | ",
 };
-
-
 
     Console.Clear();
     Console.WriteLine("[보유 골드]");
@@ -388,7 +387,7 @@ void Shop(InfoManager.InfoManager player)
 }
 
 //구매
-void Buy(InfoManager.InfoManager player, string[] isbuy)
+void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
 {
     Console.WriteLine("");
     Console.WriteLine("구매하려는 아이탬의 번호를 입력 해주세요.");
@@ -635,7 +634,7 @@ void Buy(InfoManager.InfoManager player, string[] isbuy)
 }
 
 //판매
-void Sell(InfoManager.InfoManager player, string[] isbuy)
+void Sell(InfoManager.InfoManagerPlayer player, string[] isbuy)
 {
     Console.Clear();
     Console.WriteLine("");
@@ -681,7 +680,7 @@ void Sell(InfoManager.InfoManager player, string[] isbuy)
     }
 }
 
-void sellItem(InfoManager.InfoManager player, int num)
+void sellItem(InfoManager.InfoManagerPlayer player, int num)
 {
     
     if (player.list[num].isEquip == true)
@@ -722,7 +721,7 @@ void sellItem(InfoManager.InfoManager player, int num)
 }
 
 //여관
-void Inn(InfoManager.InfoManager player)
+void Inn(InfoManager.InfoManagerPlayer player)
 {
     Console.Clear();
     Console.WriteLine("[보유 골드]");
@@ -749,7 +748,7 @@ void Inn(InfoManager.InfoManager player)
 }
 
 //체력 회복
-void rest(InfoManager.InfoManager player , int type)
+void rest(InfoManager.InfoManagerPlayer player , int type)
 {
     //1박
     if(type == 1)
@@ -792,11 +791,10 @@ void rest(InfoManager.InfoManager player , int type)
     }
 }
 
-void Save(InfoManager.InfoManager player)
+void Save(InfoManager.InfoManagerPlayer player)
 {
     string path = Directory.GetCurrentDirectory();
     path += "\\saveData.txt";
-
     List<string> saveDate = new List<string>();
     saveDate.Add(player.maxHp.ToString());
     saveDate.Add("\n");
@@ -861,15 +859,11 @@ void Save(InfoManager.InfoManager player)
         saveDate.Add(player.list[i].isEquip.ToString());
         saveDate.Add("\n");
     }
-
-
-    // text file 의 내용을 한줄 씩 읽어와 string 배열에 대입 합니다.
     for (int i = 0; i < saveDate.Count; i++)
     {
         if(i == 0) System.IO.File.WriteAllText(path, saveDate[i], Encoding.Default);
         else System.IO.File.AppendAllText(path, saveDate[i], Encoding.Default);
     }
-
     Console.WriteLine("저장되었습니다.");
     Thread.Sleep(1000);
     Console.Clear();
@@ -893,7 +887,7 @@ void Save(InfoManager.InfoManager player)
     }
 }
 
-void Reset(InfoManager.InfoManager player)
+void Reset(InfoManager.InfoManagerPlayer player)
 {
     Console.Clear();
     Console.WriteLine("정말 초기화 하시겠습니까?");
@@ -919,32 +913,7 @@ void Reset(InfoManager.InfoManager player)
     string path = Directory.GetCurrentDirectory();
     path += "\\saveData.txt";
 
-    string[] saveDate = {
-        "100",
-        "\n100",
-        "\n1",
-        "\n0",
-        "\n100",
-        "\n모험가",
-        "\n10",
-        "\n5",
-        "\n10000",
-        "\n ",
-        "\n ",
-        "\n ",
-        "\n10",
-        "\n600G",
-        "\n1500G",
-        "\n3000G",
-        "\n1000G",
-        "\n2000G",
-        "\n3500G",
-        "\n3000G",
-        "\n1500G",
-        "\n0",
-        "\n0",
-        "\n0"
-    };
+    string[] saveDate = {"100","\n100","\n1","\n0","\n100","\n모험가","\n10","\n5","\n10000","\n ","\n ","\n ","\n10","\n600G","\n1500G","\n3000G","\n1000G","\n2000G","\n3500G","\n3000G","\n1500G","\n0","\n0","\n0"};
     // text file 의 내용을 한줄 씩 읽어와 string 배열에 대입 합니다.
     for (int i = 0; i < saveDate.Length; i++)
     {
