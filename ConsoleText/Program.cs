@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 
 void init()
 {
@@ -30,7 +31,7 @@ void Town(Player player)
     else if(choice == 2)  Inventory(player);
     else if (choice == 3) Shop(player);
     else if (choice == 4) Inn(player);
-    else if (choice == 5) Shop(player);
+    else if (choice == 5) Shop(player);  
     else if (choice == 6) Shop(player);
     else if (choice == 7) Shop(player);
     else
@@ -125,21 +126,12 @@ void EquipmentItem(Player player, int type)
     List<Item> weaponItem = new List<Item>(); //무기 리스트
     List<Item> armorItem = new List<Item>();  //방어구 리스트
     List<Item> accItem = new List<Item>();    //장신구 리스트
+
     for (int i = 0; i < player.list.Count; i++)
     {
-        //무기 인것만 담자
-        if (player.list[i].type == "[무기]")
-        {
-            weaponItem.Add(player.list[i]);
-        }
-        if (player.list[i].type == "[방어구]")
-        {
-            armorItem.Add(player.list[i]);
-        }
-        if (player.list[i].type == "[장신구]")
-        {
-            accItem.Add(player.list[i]);
-        }
+        if (player.list[i].type == "[무기]")weaponItem.Add(player.list[i]);
+        if (player.list[i].type == "[방어구]")armorItem.Add(player.list[i]);
+        if (player.list[i].type == "[장신구]")accItem.Add(player.list[i]);
     }
 
     if (type == 1)
@@ -147,7 +139,7 @@ void EquipmentItem(Player player, int type)
         Console.Clear();
         Console.WriteLine("[무기 장착]");
         Console.WriteLine("");
-        Console.WriteLine("장착 가능무기");
+        Console.WriteLine("장착 가능 무기");
         for (int i = 0; i < weaponItem.Count; i++)
         {
             Console.WriteLine((i+1)+ weaponItem[i].name);
@@ -160,7 +152,7 @@ void EquipmentItem(Player player, int type)
         Console.WriteLine("0 ~ "+ weaponItem.Count);
         int choice = int.Parse(Console.ReadLine());
         if (choice == 0) Inventory(player);
-        else if(choice == 1)
+        else if(choice == 1 && weaponItem[0].type == "[무기]")
         {
             player.equipment[0] = weaponItem[0].name;
             for (int i = 0; i < player.list.Count; i++)
@@ -172,18 +164,99 @@ void EquipmentItem(Player player, int type)
                 }
                 else if(player.list[i].isEquip == true && player.list[i].type == "[무기]")
                 {
-                    player.list[i].name =  player.list[i].name;
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
                 }
             }
+            Console.WriteLine(player.equipment[0] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
             Equipment(player);
         }
-        else if (choice == 2 && player.list[1].type == "[무기]")
+        else if (choice == 2 && weaponItem[1].type == "[무기]")
         {
-            player.equipment[0] = player.list[1].name;
-            player.list[1].name = "[E]" + player.list[1].name;
+            player.equipment[0] = weaponItem[1].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (weaponItem[0].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[무기]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[0] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
             Equipment(player);
         }
-
+        else if (choice == 3 && weaponItem[2].type == "[무기]")
+        {
+            player.equipment[0] = weaponItem[2].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (weaponItem[2].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[무기]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[0] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 4 && weaponItem[3].type == "[무기]")
+        {
+            player.equipment[0] = weaponItem[3].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (weaponItem[3].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[무기]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[0] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 5 && weaponItem[4].type == "[무기]")
+        {
+            player.equipment[0] = weaponItem[4].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (weaponItem[4].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[무기]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[0] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
         else
         {
             Console.WriteLine("잘못된 입력입니다.");
@@ -193,11 +266,263 @@ void EquipmentItem(Player player, int type)
     }
     else if(type == 2)
     {
-
+        Console.Clear();
+        Console.WriteLine("[방어구 장착]");
+        Console.WriteLine("");
+        Console.WriteLine("장착 가능 방어구");
+        for (int i = 0; i < armorItem.Count; i++)
+        {
+            Console.WriteLine((i + 1) + armorItem[i].name);
+        }
+        Console.WriteLine("0.나가기");
+        Console.WriteLine("");
+        Console.WriteLine("장착을 원하는 방어구의 번호를 고르세요");
+        Console.WriteLine("");
+        Console.WriteLine("원하시는 행동을 입력 해주세요.");
+        Console.WriteLine("0 ~ " + armorItem.Count);
+        int choice = int.Parse(Console.ReadLine());
+        if (choice == 0) Inventory(player);
+        else if (choice == 1 && armorItem[0].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[0].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[0].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[1] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 2 && armorItem[1].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[1].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[1].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[1] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 3 && armorItem[2].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[2].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[2].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[1] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 4 && armorItem[3].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[3].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[3].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[1] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 5 && armorItem[4].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[4].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[4].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[1] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else
+        {
+            Console.WriteLine("잘못된 입력입니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
     }
     else
     {
-
+        Console.Clear();
+        Console.WriteLine("[장신구 장착]");
+        Console.WriteLine("");
+        Console.WriteLine("장착 가능 장신구");
+        for (int i = 0; i < accItem.Count; i++)
+        {
+            Console.WriteLine((i + 1) + accItem[i].name);
+        }
+        Console.WriteLine("0.나가기");
+        Console.WriteLine("");
+        Console.WriteLine("장착을 원하는 장신구의 번호를 고르세요");
+        Console.WriteLine("");
+        Console.WriteLine("원하시는 행동을 입력 해주세요.");
+        Console.WriteLine("0 ~ " + accItem.Count);
+        int choice = int.Parse(Console.ReadLine());
+        if (choice == 0) Inventory(player);
+        else if (choice == 1 && armorItem[0].type == "[장신구]")
+        {
+            player.equipment[2] = accItem[0].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (accItem[0].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[장신구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[2] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 2 && armorItem[1].type == "[장신구]")
+        {
+            player.equipment[2] = accItem[1].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (accItem[1].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[장신구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[2] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 3 && armorItem[2].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[2].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[2].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[2] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 4 && armorItem[3].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[3].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[3].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[2] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else if (choice == 5 && armorItem[4].type == "[방어구]")
+        {
+            player.equipment[1] = armorItem[4].name;
+            for (int i = 0; i < player.list.Count; i++)
+            {
+                if (armorItem[4].name == player.list[i].name)
+                {
+                    player.list[i].isEquip = true;
+                    player.list[i].name = "[E]" + player.list[i].name;
+                }
+                else if (player.list[i].isEquip == true && player.list[i].type == "[방어구]")
+                {
+                    string tmp = player.list[i].name;
+                    string tmp1 = tmp.Substring(3, -1);
+                    player.list[i].name = tmp1;
+                }
+            }
+            Console.WriteLine(player.equipment[2] + "을 장착하였습니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
+        else
+        {
+            Console.WriteLine("잘못된 입력입니다.");
+            Thread.Sleep(1000);
+            Equipment(player);
+        }
     }
 }
 
@@ -235,6 +560,7 @@ void Shop(Player player)
     int choice = int.Parse(Console.ReadLine());
     if (choice == 0)Town(player);
     else if (choice == 1)Buy(player);
+    else if (choice == 2) Sell(player);
     else
     {
         Console.WriteLine("잘못된 입력입니다.");
@@ -243,6 +569,7 @@ void Shop(Player player)
     }
 }
 
+//구매
 void Buy(Player player)
 {
     Console.WriteLine("");
@@ -398,6 +725,62 @@ void Buy(Player player)
         Console.WriteLine("잘못된 입력입니다.");
         Thread.Sleep(1000);
         Buy(player);
+    }
+}
+
+//판매
+void Sell(Player player)
+{
+    Console.Clear();
+    Console.WriteLine("");
+    Console.WriteLine("[보유 골드]");
+    Console.WriteLine(player.GetGold() + "G");
+    Console.WriteLine("");
+    Console.WriteLine("[아이탬 목록]");
+    for (int i = 0; i < player.list.Count; i++)
+    {
+        Console.WriteLine((i + 1)+"."+ player.list[i].name);
+    }
+    Console.WriteLine("");
+    Console.WriteLine("원하시는 행동을 입력 해주세요.");
+
+    int choice = int.Parse(Console.ReadLine());
+    if (choice == 0) Shop(player);
+    else if (choice == 1 && player.list.Count > 0)sellItem(player, 0);
+    else if (choice == 2 && player.list.Count > 1)sellItem(player, 1);
+    else if (choice == 3 && player.list.Count > 2)sellItem(player, 2);
+    else if (choice == 4 && player.list.Count > 3)sellItem(player, 3);
+    else if (choice == 5 && player.list.Count > 4)sellItem(player, 4);
+    else if (choice == 6 && player.list.Count > 5)sellItem(player, 5);
+    else if (choice == 7 && player.list.Count > 6) sellItem(player, 6);
+    else if (choice == 8 && player.list.Count > 7) sellItem(player, 7);
+    else if (choice == 9 && player.list.Count > 8) sellItem(player, 8);
+    else if (choice == 10 && player.list.Count > 9) sellItem(player, 9);
+    else
+    {
+        Console.WriteLine("잘못된 입력입니다.");
+        Thread.Sleep(1000);
+        Sell(player);
+    }
+}
+
+void sellItem(Player player, int num)
+{
+    if (player.list[num].isEquip == true)
+    {
+        Console.WriteLine("장착 아이템은 팔수 없습니다.");
+        Sell(player);
+    }
+    else
+    {
+        int sellGold = player.list[num].price / 100 * 85;
+        player.SetGold(sellGold);
+        Console.WriteLine("");
+        Console.WriteLine(player.list[num].name + "을 판매하였습니다.");
+        Console.WriteLine(sellGold + "G 를 획득하였습니다.");
+        player.list.RemoveAt(num);
+        Thread.Sleep(1000);
+        Shop(player);
     }
 }
 
