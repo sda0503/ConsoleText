@@ -8,13 +8,14 @@ namespace InfoManager
 {
     class InfoManagerPlayer
     {
+        public int DungeonClear = 0;
         public int maxHp = 100;
         public int currentHp = 100;
         public int level = 1;
         public int currentExp = 0;
         public int maxExp = 100;
         public string className = "모험가";
-        public int atk = 10;
+        public float atk = 10;
         public int def = 5;
         public int gold = 10000;
         public string[] equipment = { "", "", "" };    //차례 대로 무기, 방어구, 장신구
@@ -46,7 +47,7 @@ namespace InfoManager
             {
                 for (int i = 0; i < list.Count; i++)
                 {
-                    Console.WriteLine(list.ElementAt(i).name);
+                    Console.WriteLine((i + 1) + "." + list.ElementAt(i).name);
                 }
             }
         }
@@ -55,8 +56,8 @@ namespace InfoManager
         public int GetMaxHp() { return maxHp; }
         public int SetHp(int add) { currentHp += add; return currentHp; }
         public int GetHp() { return currentHp; }
-        public int SetAtk(int add) { atk += add; return atk; }
-        public int GetAtk() { return atk; }
+        public float SetAtk(float add) { atk += add; return atk; }
+        public float GetAtk() { return atk; }
         public int SetDef(int add) { def += add; return def; }
         public int GetDef() { return def; }
         public string SetClassName(string jobname) { className = jobname; return className; }
@@ -75,5 +76,6 @@ class Item
     public int power;
     public int price;
     public string info;
+    public int number;
     public bool isEquip = false;
 }

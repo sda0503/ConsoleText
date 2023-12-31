@@ -7,6 +7,67 @@ using InfoManager;
 using System.Linq;
 
 
+void Title()
+{
+    Console.Clear();
+    Console.WriteLine("스파르타 던전마을");
+    Console.WriteLine("");
+    Console.WriteLine("1.게임 스타트 - 스토리 보기");
+    Console.WriteLine("2.게임 스타트 - 스토리 스킵");
+    Console.WriteLine("3.나가기");
+    Console.WriteLine("");
+    Console.WriteLine("원하시는 행동을 입력 해주세요.");
+    int choice = int.Parse(Console.ReadLine());
+    if (choice == 1) story();
+    else if (choice == 2) init();
+    else if (choice == 3) Console.WriteLine("게임을 종료합니다.");
+    else
+    {
+        Console.WriteLine("잘못된 입력입니다.");
+        Thread.Sleep(1000);
+        Title();
+    }
+}
+
+void story()
+{
+    Console.Clear();
+    Console.WriteLine("어느날 스파르타에 있는 어느 작은 한 마을에 던전이 나타났습니다.");
+    Thread.Sleep(2000);
+    Console.WriteLine("던전에서는 몬스터 들이 튀어나와 스파르타를 혼란에 빠뜨렸습니다.");
+    Thread.Sleep(2000);
+    Console.WriteLine("스파르타에서는 몬스터들을 막기 위한 정예 84인을 뽑았습니다.");
+    Thread.Sleep(2000);
+    Console.WriteLine("");
+    Console.WriteLine("");
+    Console.WriteLine("스파르타에서 선출된 84명의 용사는 몬스터들을 상대로 열심히 싸움을 시작하였고");
+    Thread.Sleep(2000);
+    Console.WriteLine("스파르타에 출현한 몬스터들을 다시 던전으로 돌아가게 하였습니다.");
+    Thread.Sleep(2000);
+    Console.WriteLine("하지만 아직 던전은 건재 하였고 스파르타의 84명의 용사들은");
+    Thread.Sleep(2000);
+    Console.WriteLine("남아 있는 몬스터들을 소탕하기 위해 던전으로 들어가기 시작하였습니다.");
+    Thread.Sleep(2000);
+    Console.WriteLine("던전에 남아 있는 몬스터들을 소탕하고 던전을 봉인하여");
+    Thread.Sleep(2000);
+    Console.WriteLine("스파르타의 평안을 위해 던전에 들어가야 하는 상황입니다.");
+    Thread.Sleep(2000);
+    Console.WriteLine("");
+    Console.WriteLine("");
+    Console.WriteLine("스파르타의 84인의 용사 중 한분인 당신에게");
+    Thread.Sleep(2000);
+    Console.WriteLine("던전의 봉인을 부탁드리겠습니다.");
+    Thread.Sleep(2000);
+    Console.Write("스파르타의 축복이 당신과 함께 함께 하기를.");
+    Thread.Sleep(500);
+    Console.Write(".");
+    Thread.Sleep(500);
+    Console.Write(".");
+    Console.Clear();
+    Console.Beep();
+    Thread.Sleep(1000);
+    init();
+}
 
 void init()
 {
@@ -18,40 +79,42 @@ void init()
     //플레이어 초기화
     InfoManager.InfoManagerPlayer player = new InfoManager.InfoManagerPlayer();
     //메모장 로드
-    player.maxHp = Convert.ToInt32(textValue[0]);
-    player.currentHp = Convert.ToInt32(textValue[1]);
-    player.level = Convert.ToInt32(textValue[2]);
-    player.currentExp = Convert.ToInt32(textValue[3]);
-    player.maxExp = Convert.ToInt32(textValue[4]);
-    player.className = textValue[5];
-    player.atk = Convert.ToInt32(textValue[6]);
-    player.def = Convert.ToInt32(textValue[7]);
-    player.gold = Convert.ToInt32(textValue[8]);
-    player.equipment[0] = textValue[9];
-    player.equipment[1] = textValue[10];
-    player.equipment[2] = textValue[11];
-    player.maxInventory = Convert.ToInt32(textValue[12]);
-    player.isbuy[0] = textValue[13];
-    player.isbuy[1] = textValue[14];
-    player.isbuy[2] = textValue[15];
-    player.isbuy[3] = textValue[16];
-    player.isbuy[4] = textValue[17];
-    player.isbuy[5] = textValue[18];
-    player.isbuy[6] = textValue[19];
-    player.isbuy[7] = textValue[20];
-    player.appendAtk = Convert.ToInt32(textValue[21]);
-    player.appendDef = Convert.ToInt32(textValue[22]);
-    int list_count = Convert.ToInt32(textValue[23]);
+    player.DungeonClear = Convert.ToInt32(textValue[0]);
+    player.maxHp = Convert.ToInt32(textValue[1]);
+    player.currentHp = Convert.ToInt32(textValue[2]);
+    player.level = Convert.ToInt32(textValue[3]);
+    player.currentExp = Convert.ToInt32(textValue[4]);
+    player.maxExp = Convert.ToInt32(textValue[5]);
+    player.className = textValue[6];
+    player.atk = (float)Convert.ToDouble(textValue[7]);
+    player.def = Convert.ToInt32(textValue[8]);
+    player.gold = Convert.ToInt32(textValue[9]);
+    player.equipment[0] = textValue[10];
+    player.equipment[1] = textValue[11];
+    player.equipment[2] = textValue[12];
+    player.maxInventory = Convert.ToInt32(textValue[13]);
+    player.isbuy[0] = textValue[14];
+    player.isbuy[1] = textValue[15];
+    player.isbuy[2] = textValue[16];
+    player.isbuy[3] = textValue[17];
+    player.isbuy[4] = textValue[18];
+    player.isbuy[5] = textValue[19];
+    player.isbuy[6] = textValue[20];
+    player.isbuy[7] = textValue[21];
+    player.appendAtk = Convert.ToInt32(textValue[22]);
+    player.appendDef = Convert.ToInt32(textValue[23]);
+    int list_count = Convert.ToInt32(textValue[24]);
 
     for (int i = 0; i < list_count; i++)
     {
         player.list.Add(new Item());
-        player.list[i].type = textValue[24 + (i * 6)];
-        player.list[i].name = textValue[24 + (i * 6) + 1];
-        player.list[i].power = Convert.ToInt32(textValue[24 + (i * 6) + 2]);
-        player.list[i].price = Convert.ToInt32(textValue[24 + (i * 6) + 3]);
-        player.list[i].info = textValue[24 + (i * 6) + 4];
-        player.list[i].isEquip = Convert.ToBoolean(textValue[24 + (i * 6) + 5]);
+        player.list[i].type = textValue[25 + (i * 7)];
+        player.list[i].name = textValue[25 + (i * 7) + 1];
+        player.list[i].power = Convert.ToInt32(textValue[25 + (i * 7) + 2]);
+        player.list[i].price = Convert.ToInt32(textValue[25 + (i * 7) + 3]);
+        player.list[i].info = textValue[25 + (i * 7) + 4];
+        player.list[i].number = Convert.ToInt32(textValue[25 + (i * 7) + 5]);
+        player.list[i].isEquip = Convert.ToBoolean(textValue[25 + (i * 7) + 6]);
     }
 
 
@@ -64,16 +127,15 @@ void init()
 void Town(InfoManager.InfoManagerPlayer player)
 {
     Console.Clear();
+    Console.WriteLine("[마을 안내도]");
     Console.WriteLine("");
     Console.WriteLine("1.상태보기");
     Console.WriteLine("2.인벤토리");
     Console.WriteLine("3.상점");
     Console.WriteLine("4.여관");
-    Console.WriteLine("5.전직");
-    Console.WriteLine("6.던전");
-    Console.WriteLine("7.길드");
-    Console.WriteLine("8.저장");
-    Console.WriteLine("9.초기화");
+    Console.WriteLine("5.던전");
+    Console.WriteLine("6.저장");
+    Console.WriteLine("7.초기화");
     Console.WriteLine("");
     Console.WriteLine("원하시는 행동을 입력 해주세요.");
     int choice = int.Parse(Console.ReadLine());
@@ -82,11 +144,9 @@ void Town(InfoManager.InfoManagerPlayer player)
     else if(choice == 2)  Inventory(player);
     else if (choice == 3) Shop(player);
     else if (choice == 4) Inn(player);
-    else if (choice == 5) Shop(player);  
-    else if (choice == 6) Dungeon(player);
-    else if (choice == 7) Shop(player);
-    else if (choice == 8) Save(player);
-    else if (choice == 9) Reset(player);
+    else if (choice == 5) Dungeon(player);
+    else if (choice == 6) Save(player);
+    else if (choice == 7) Reset(player);
     else
     {
         Console.WriteLine("잘못된 입력입니다.");
@@ -102,8 +162,8 @@ void State(InfoManager.InfoManagerPlayer player)
     Console.Clear();
     Console.WriteLine("Lv." + player.GetLevel());
     Console.WriteLine("직업 :" + player.GetClassName());
-    Console.WriteLine("공격력 :" +(player.GetAtk() + player.appendAtk) + " [기본 공격력 : "+ player.GetAtk() + " ( +" + player.appendAtk +")]");
-    Console.WriteLine("방어력 :" + (player.GetDef() + player.appendDef)+ " [기본 방어력 : " + player.GetDef() + " ( +" + player.appendDef + ")]");
+    Console.WriteLine("공격력 :" +(player.GetAtk() + player.appendAtk) + " [기본 공격력 : "+ player.GetAtk() + " (+" + player.appendAtk +")]");
+    Console.WriteLine("방어력 :" + (player.GetDef() + player.appendDef)+ " [기본 방어력 : " + player.GetDef() + " (+" + player.appendDef + ")]");
     Console.WriteLine("체력 :" + player.GetHp() + "/" + player.GetMaxHp());
     Console.WriteLine("Gold : " + player.GetGold() + " G");
     Console.WriteLine("");
@@ -137,14 +197,8 @@ void Inventory(InfoManager.InfoManagerPlayer player)
     Console.WriteLine("");
     Console.WriteLine("원하시는 행동을 입력 해주세요.");
     int choice = int.Parse(Console.ReadLine());
-    if (choice == 0)
-    {
-        Town(player);
-    }
-    else if (choice == 1)
-    {
-        Equipment(player);
-    }
+    if (choice == 0) Town(player);
+    else if (choice == 1) Equipment(player);
     else
     {
         Console.WriteLine("잘못된 입력입니다.");
@@ -199,7 +253,7 @@ void EquipmentItem(InfoManager.InfoManagerPlayer player, int type)
         Console.WriteLine("장착 가능 무기");
         for (int i = 0; i < weaponItem.Count; i++)
         {
-            Console.WriteLine((i + 1)+ weaponItem[i].name);
+            Console.WriteLine((i + 1) + "."+ weaponItem[i].name);
         }
         Console.WriteLine("0.나가기");
         Console.WriteLine("");
@@ -229,7 +283,7 @@ void EquipmentItem(InfoManager.InfoManagerPlayer player, int type)
         Console.WriteLine("장착 가능 방어구");
         for (int i = 0; i < armorItem.Count; i++)
         {
-            Console.WriteLine((i + 1) + armorItem[i].name);
+            Console.WriteLine((i + 1) + "." + armorItem[i].name);
         }
         Console.WriteLine("0.나가기");
         Console.WriteLine("");
@@ -259,7 +313,7 @@ void EquipmentItem(InfoManager.InfoManagerPlayer player, int type)
         Console.WriteLine("장착 가능 장신구");
         for (int i = 0; i < accItem.Count; i++)
         {
-            Console.WriteLine((i + 1) + accItem[i].name);
+            Console.WriteLine((i + 1) + "." + accItem[i].name);
         }
         Console.WriteLine("0.나가기");
         Console.WriteLine("");
@@ -291,7 +345,7 @@ void selectItem(InfoManager.InfoManagerPlayer player, int number, List<Item> lis
     {
         if(count == 0)
         {
-            if (list[0].name == player.list[i].name)
+            if (player.equipment[count] == player.list[i].name)
             {
                 player.list[i].isEquip = true;
                 player.list[i].name = "[E]" + player.list[i].name;
@@ -301,14 +355,14 @@ void selectItem(InfoManager.InfoManagerPlayer player, int number, List<Item> lis
             {
                 player.appendAtk = player.appendAtk - player.list[i].power;
                 string tmp = player.list[i].name;
-                string tmp1 = tmp.Substring(3, -1);
+                string tmp1 = tmp.Substring(3);
                 player.list[i].name = tmp1;
             }
             
         }
         else if(count == 1)
         {
-            if (list[0].name == player.list[i].name)
+            if (player.equipment[count] == player.list[i].name)
             {
                 player.list[i].isEquip = true;
                 player.list[i].name = "[E]" + player.list[i].name;
@@ -319,13 +373,13 @@ void selectItem(InfoManager.InfoManagerPlayer player, int number, List<Item> lis
             {
                 player.appendDef = player.appendDef - player.list[i].power;
                 string tmp = player.list[i].name;
-                string tmp1 = tmp.Substring(3, -1);
+                string tmp1 = tmp.Substring(3);
                 player.list[i].name = tmp1;
             }
         }
         else if (count == 2)
         {
-            if (list[0].name == player.list[i].name)
+            if (player.equipment[count] == player.list[i].name)
             {
                 player.list[i].isEquip = true;
                 player.list[i].name = "[E]" + player.list[i].name;
@@ -335,7 +389,7 @@ void selectItem(InfoManager.InfoManagerPlayer player, int number, List<Item> lis
             {
                 player.appendDef = player.appendDef - player.list[i].power;
                 string tmp = player.list[i].name;
-                string tmp1 = tmp.Substring(3, -1);
+                string tmp1 = tmp.Substring(3);
                 player.list[i].name = tmp1;
             }
         }
@@ -408,7 +462,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 600)
             {
                 player.SetGold(-600);
-                player.AddItem(new Item() { type = "[무기]", name = "낡은 검", power = 2, price = 600, info = "쉽게 볼 수 있는 낡은 검 입니다." });
+                player.AddItem(new Item() { type = "[무기]", name = "낡은 검", power = 2, price = 600, info = "쉽게 볼 수 있는 낡은 검 입니다.", number = 1 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[0] = "구매완료";
                 Thread.Sleep(1000);
@@ -436,7 +490,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 1500)
             {
                 player.SetGold(-1500);
-                player.AddItem(new Item() { type = "[무기]", name = "청동 도끼", power = 5, price = 1500, info = "무쇠로 만들어져 튼튼한 갑옷입니다." });
+                player.AddItem(new Item() { type = "[무기]", name = "청동 도끼", power = 5, price = 1500, info = "무쇠로 만들어져 튼튼한 갑옷입니다.", number = 2 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[1] = "구매완료";
                 Thread.Sleep(1000);
@@ -464,7 +518,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 3500)
             {
                 player.SetGold(-3500);
-                player.AddItem(new Item() { type = "[무기]", name = "스파르타의 창", power = 9, price = 3500, info = "스파르타의 전사들이 사용했다는 전설의 창입니다." });
+                player.AddItem(new Item() { type = "[무기]", name = "스파르타의 창", power = 9, price = 3500, info = "스파르타의 전사들이 사용했다는 전설의 창입니다.", number = 3 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[2] = "구매완료";
                 Thread.Sleep(1000);
@@ -495,7 +549,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 1000)
             {
                 player.SetGold(-1000);
-                player.AddItem(new Item() { type = "[방어구]", name = "수련자의 갑옷", power = 5, price = 1000, info = "수련에 도움을 주는 갑옵 입니다." });
+                player.AddItem(new Item() { type = "[방어구]", name = "수련자의 갑옷", power = 5, price = 1000, info = "수련에 도움을 주는 갑옵 입니다.", number = 4 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[3] = "구매완료";
                 Thread.Sleep(1000);
@@ -524,7 +578,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 2000)
             {
                 player.SetGold(-2000);
-                player.AddItem(new Item() { type = "[방어구]", name = "무쇠갑옷 ", power = 9, price = 2000, info = "무쇠로 만들어져 튼튼한 갑옷입니다." });
+                player.AddItem(new Item() { type = "[방어구]", name = "무쇠갑옷 ", power = 9, price = 2000, info = "무쇠로 만들어져 튼튼한 갑옷입니다.", number = 5 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[4] = "구매완료";
                 Thread.Sleep(1000);
@@ -553,7 +607,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 3500)
             {
                 player.SetGold(-3500);
-                player.AddItem(new Item() { type = "[방어구]", name = "스파르타의 갑옷", power = 15, price = 3500, info = "스파르타의 전사들이 사용했다는 전설의 갑옷입니다." });
+                player.AddItem(new Item() { type = "[방어구]", name = "스파르타의 갑옷", power = 15, price = 3500, info = "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", number = 6 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[5] = "구매완료";
                 Thread.Sleep(1000);
@@ -582,7 +636,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 3000)
             {
                 player.SetGold(-3000);
-                player.AddItem(new Item() { type = "[장신구]", name = "스파르타의 방패", power = 10, price = 3000, info = "스파르타의 전사들이 사용했다는 전설의 방패입니다." });
+                player.AddItem(new Item() { type = "[장신구]", name = "스파르타의 방패", power = 10, price = 3000, info = "스파르타의 전사들이 사용했다는 전설의 방패입니다.", number = 7 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[6] = "구매완료";
                 Thread.Sleep(1000);
@@ -611,7 +665,7 @@ void Buy(InfoManager.InfoManagerPlayer player, string[] isbuy)
             if (player.GetGold() >= 1500)
             {
                 player.SetGold(-1500);
-                player.AddItem(new Item() { type = "[장신구]", name = "팔목보호대", power = 3, price = 1000, info = "착용자의 팔목을 보호해주는 보호대입니다." });
+                player.AddItem(new Item() { type = "[장신구]", name = "팔목보호대", power = 3, price = 1000, info = "착용자의 팔목을 보호해주는 보호대입니다.", number = 8 });
                 Console.WriteLine("구매를 완료했습니다.");
                 isbuy[7] = "구매완료";
                 Thread.Sleep(1000);
@@ -697,7 +751,7 @@ void sellItem(InfoManager.InfoManagerPlayer player, int num)
         else if (player.list[num].type == "[장신구]") player.equipment[2] = null;
         //장착한 아이템 값 비우기
         player.list[num].isEquip = false;
-        player.isbuy[num] = player.list[num].price.ToString();
+        player.isbuy[player.list[num].number - 1] = player.list[num].price.ToString() + "G";
         int sellGold = player.list[num].price / 100 * 85;
         player.SetGold(sellGold);
         Console.WriteLine("");
@@ -709,7 +763,7 @@ void sellItem(InfoManager.InfoManagerPlayer player, int num)
     }
     else
     {
-        player.isbuy[num] = player.list[num].price.ToString();
+        player.isbuy[num] = player.list[num].price.ToString() + "G";
         int sellGold = player.list[num].price / 100 * 85;
         player.SetGold(sellGold);
         Console.WriteLine("");
@@ -721,11 +775,18 @@ void sellItem(InfoManager.InfoManagerPlayer player, int num)
     }
 }
 
+
 void Dungeon(InfoManager.InfoManagerPlayer player)
 {
     Console.Clear();
     Console.WriteLine("[주의]");
     Console.WriteLine("던전 내에서 발생하는 모든일에는 책임을 지지 않습니다.");
+    Console.WriteLine("");
+    Console.WriteLine("[플레이어 정보]");
+    Console.WriteLine("플레이어 Lv : " + player.level );
+    Console.WriteLine("플레이어 HP : "+ player.currentHp + "/" + player.maxHp);
+    Console.WriteLine("플레이어 공격력 : " + (player.atk + player.appendAtk));
+    Console.WriteLine("플레이어 방어력 : " + (player.def + player.appendDef));
     Console.WriteLine("");
     Console.WriteLine("1.이지 던전 | 방어력 5 이상 권장");
     Console.WriteLine("2.노말 던전 | 방어력 11 이상 권장");
@@ -735,9 +796,9 @@ void Dungeon(InfoManager.InfoManagerPlayer player)
     Console.WriteLine("원하시는 행동을 입력 해주세요.");
     int choice = int.Parse(Console.ReadLine());
     if (choice == 0) Town(player);
-    else if (choice == 1) ;
-    else if (choice == 2) ;
-    else if (choice == 3) ;
+    else if (choice == 1) adventureDungeon(player,1,5);
+    else if (choice == 2) adventureDungeon(player,2,11);
+    else if (choice == 3) adventureDungeon(player,3,17);
     else
     {
         Console.WriteLine("잘못된 입력입니다.");
@@ -748,9 +809,125 @@ void Dungeon(InfoManager.InfoManagerPlayer player)
 
 void adventureDungeon(InfoManager.InfoManagerPlayer player, int type, int require)
 {
-    if(require > player.def + player.appendDef)
-    {
+    Random random = new Random();
+    int percent = random.Next(0, 101);   // 0~100% 
+    Console.Clear();
 
+    int differencePoint = require - (player.def + player.appendDef);
+    int damage = random.Next(20 + differencePoint, 35 + differencePoint);
+    float playerAtk = player.atk + player.appendAtk;
+    int GetGold = random.Next((int)playerAtk, (int)playerAtk *2);
+    int gold = 0;
+
+    Console.WriteLine("던전 탐사를 진행중.");
+    Thread.Sleep(1000);
+    Console.WriteLine("던전 탐사를 진행중..");
+    Thread.Sleep(1000);
+    Console.WriteLine("던전 탐사를 진행중...");
+    Thread.Sleep(1000);
+    //필요 방어도가 낮을 경우
+    if (differencePoint > 0)
+    {
+        Console.WriteLine("필요 방어도가 부족합니다.");
+        Thread.Sleep(1000);
+        Console.WriteLine("던전 클리어율 계산중");
+        Thread.Sleep(1000);
+        Console.WriteLine("던전 클리어율 계산중.");
+        Thread.Sleep(1000);
+        Console.WriteLine("던전 클리어율 계산중..");
+        Thread.Sleep(1000);
+        if (percent < 40)
+        {
+            Console.Clear();
+            Console.WriteLine("던전 탐사에 실패 했습니다.");
+            Console.WriteLine("실패 패널티로 체력이 50% 감소합니다.");
+            player.currentHp = player.currentHp / 2;
+            Console.WriteLine("");
+            Console.WriteLine("3초후 마을로 돌아갑니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("2초후 마을로 돌아갑니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("1초후 마을로 돌아갑니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("마을로 이동합니다.");
+            Thread.Sleep(100);
+            Town(player);
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("던전 탐사에 성공 했습니다.");
+            Thread.Sleep(500);
+            Console.WriteLine("");
+            Console.WriteLine(damage+"의 피해를 받았습니다.");
+            player.SetHp(-damage);
+            Thread.Sleep(500);
+            Console.WriteLine("보상을 획득합니다.");
+            if (type == 1) gold = 1000;
+            else if (type == 2) gold = 1700;
+            else if (type == 3) gold = 2500;
+
+            player.SetGold(gold + (gold * GetGold / 100));
+            Console.WriteLine((gold + (gold * GetGold / 100)) +"G를 보상으로 획득합니다.");
+            Console.WriteLine("");
+            player.DungeonClear++;
+            LevelUp(player);
+            Console.WriteLine("");
+            Console.WriteLine("3초후 마을로 돌아갑니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("2초후 마을로 돌아갑니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("1초후 마을로 돌아갑니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("마을로 이동합니다.");
+            Thread.Sleep(100);
+            Town(player);
+        }
+    }
+    else
+    {
+        Console.Clear();
+        Console.WriteLine("던전 탐사에 성공 했습니다.");
+        Thread.Sleep(500);
+        Console.WriteLine(damage + "의 피해를 받았습니다.");
+        player.SetHp(-damage);
+        Thread.Sleep(500);
+        Console.WriteLine("보상을 획득합니다.");
+        if (type == 1) gold = 1000;
+        else if (type == 2) gold = 1700;
+        else if (type == 3) gold = 2500;
+
+        player.SetGold(gold + (gold * GetGold / 100));
+        Console.WriteLine((gold + (gold * GetGold / 100)) + "G를 보상으로 획득합니다.");
+        Console.WriteLine("");
+        player.DungeonClear++;
+        LevelUp(player);
+        Console.WriteLine("");
+        Console.WriteLine("3초후 마을로 돌아갑니다.");
+        Thread.Sleep(1000);
+        Console.WriteLine("2초후 마을로 돌아갑니다.");
+        Thread.Sleep(1000);
+        Console.WriteLine("1초후 마을로 돌아갑니다.");
+        Thread.Sleep(1000);
+        Console.WriteLine("마을로 이동합니다.");
+        Thread.Sleep(100);
+        Town(player);
+    }
+}
+
+void LevelUp(InfoManager.InfoManagerPlayer player)
+{
+    if(player.DungeonClear % player.level == 0)
+    {
+        Console.WriteLine("Level이 올랐습니다.");
+        player.DungeonClear = 0;
+        player.SetLevel();
+        player.atk = player.atk + (((float)player.level - 1) * 0.5f);
+        player.def = player.def + (player.level - 1);
+        Thread.Sleep(1000);
+        Console.WriteLine("HP를 회복합니다.");
+        player.currentHp = player.maxHp;
+        Thread.Sleep(1000);
     }
 }
 
@@ -830,6 +1007,8 @@ void Save(InfoManager.InfoManagerPlayer player)
     string path = Directory.GetCurrentDirectory();
     path += "\\saveData.txt";
     List<string> saveDate = new List<string>();
+    saveDate.Add(player.DungeonClear.ToString());
+    saveDate.Add("\n");
     saveDate.Add(player.maxHp.ToString());
     saveDate.Add("\n");
     saveDate.Add(player.currentHp.ToString());
@@ -890,6 +1069,8 @@ void Save(InfoManager.InfoManagerPlayer player)
         saveDate.Add("\n");
         saveDate.Add(player.list[i].info);
         saveDate.Add("\n");
+        saveDate.Add(player.list[i].number.ToString());
+        saveDate.Add("\n");
         saveDate.Add(player.list[i].isEquip.ToString());
         saveDate.Add("\n");
     }
@@ -947,7 +1128,7 @@ void Reset(InfoManager.InfoManagerPlayer player)
     string path = Directory.GetCurrentDirectory();
     path += "\\saveData.txt";
 
-    string[] saveDate = {"100","\n100","\n1","\n0","\n100","\n모험가","\n10","\n5","\n10000","\n ","\n ","\n ","\n10","\n600G","\n1500G","\n3000G","\n1000G","\n2000G","\n3500G","\n3000G","\n1500G","\n0","\n0","\n0"};
+    string[] saveDate = {"0", "\n100", "\n100","\n1","\n0","\n100","\n모험가","\n10","\n5","\n10000","\n ","\n ","\n ","\n10","\n600G","\n1500G","\n3000G","\n1000G","\n2000G","\n3500G","\n3000G","\n1500G","\n0","\n0","\n0"};
     // text file 의 내용을 한줄 씩 읽어와 string 배열에 대입 합니다.
     for (int i = 0; i < saveDate.Length; i++)
     {
@@ -958,10 +1139,10 @@ void Reset(InfoManager.InfoManagerPlayer player)
     Console.WriteLine("초기화가 완료 되었습니다.");
     Console.WriteLine("마을로 돌아갑니다.");
     Thread.Sleep(1000);
-    init();
+    Title();
 }
 
 //시작하기
-init();
+Title();
 
 
