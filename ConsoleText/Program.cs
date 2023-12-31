@@ -121,8 +121,6 @@ void init()
     //게임 시작
     Town(player);
 }
-
-
 //마을
 void Town(InfoManager.InfoManagerPlayer player)
 {
@@ -968,7 +966,7 @@ void rest(InfoManager.InfoManagerPlayer player , int type)
         if(player.GetGold() >= 500)
         {
             int MaxtHp = player.GetMaxHp();
-            player.SetHp(MaxtHp);
+            player.currentHp = player.maxHp;
             Console.WriteLine("회복을 완료 했습니다.");
             Thread.Sleep(1000);
             Inn(player);
@@ -987,7 +985,7 @@ void rest(InfoManager.InfoManagerPlayer player , int type)
         if (player.GetGold() >= 300)
         {
             int MaxtHp = player.GetMaxHp();
-            player.SetHp(MaxtHp / 100 * 30);
+            player.currentHp = player.maxHp / 100 * 30;
             Console.WriteLine("대실을 완료 했습니다.");
             Thread.Sleep(1000);
             Inn(player);
