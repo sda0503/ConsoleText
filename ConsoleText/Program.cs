@@ -139,7 +139,7 @@ void Town(InfoManager.InfoManagerPlayer player)
     int choice = int.Parse(Console.ReadLine());
 
     if(choice == 1)       State(player);
-    else if(choice == 2)  Inventory(player);
+    else if (choice == 2) Inventory(player);
     else if (choice == 3) Shop(player);
     else if (choice == 4) Inn(player);
     else if (choice == 5) Dungeon(player);
@@ -1142,5 +1142,3 @@ void Reset(InfoManager.InfoManagerPlayer player)
 
 //시작하기
 Title();
-
-
